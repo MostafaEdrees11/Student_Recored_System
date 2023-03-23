@@ -1,1 +1,1 @@
-# Student_Recored_System
+# Student_Record_System
