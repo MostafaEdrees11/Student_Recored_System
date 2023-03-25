@@ -10,4 +10,12 @@ typedef struct admin
     struct admin* link;
 }s_admin;
 
+
+/*
+---------------------------------------------------
+			functions prototypes
+---------------------------------------------------
+*/
+void View_all_records(s_student *head_student);
+
 #endif
