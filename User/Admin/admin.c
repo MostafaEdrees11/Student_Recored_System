@@ -118,3 +118,39 @@ void Remove_student_record (s_student **head_student,long ID){
     }
  }
 }
+
+/*
+------------------------------------------------------------------------------------------------
+									Function Definition		                	    		   |
+------------------------------------------------------------------------------------------------
+Name: Edit student grade		                                                               |
+Parameters: it take two parameters ( pointer to head of students linked list, ID of student ).                  |
+Return: it returns no thing.                                                                   |
+Usage: it is used to Edit student grade by entered the student ID . |
+------------------------------------------------------------------------------------------------
+*/
+void Edit_student_grade(s_student *head_student,int ID){
+int flag = 0; /* use flag to check id is exist or not flag=1 this means id is exist ,
+              if flag=0 this means id isn't exist*/
+int new_grade;
+	if(head_student == NULL){printf("The list is empty.\n");}	
+	else
+	{
+
+		while(head_student != NULL)
+		{
+			if(head_student->m_id == ID)
+			{
+            printf("new grade =");
+			scanf("%d",&new_grade);
+			head_student->m_grade=new_grade;
+				flag = 1;
+				break;
+			}
+			head_student = head_student->link;
+		}
+		if(flag == 0)
+		printf("Wrong ID !!!\n");
+	}
+
+}
