@@ -10,5 +10,5 @@ typedef struct student
     long m_id;
     struct student* link;
 }s_student;
-
+void Edit_student_name(s_student *head_student,long ID);
 #endif

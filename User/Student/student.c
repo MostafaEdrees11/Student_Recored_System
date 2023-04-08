@@ -12,12 +12,12 @@ Return: it returns no thing.                                                    
 Usage: it is used to edit name of the student that we receive its ID.            |
 ----------------------------------------------------------------------------------------------
 */
-void Edit_student_name(s_student *head_student,long ID){
+void Edit_student_name(s_student *head_student,int ID){
 int flag = 0; /* use flag to check id is exist or not flag=1 this means id is exist ,
               if flag=0 this means id isn't exist*/
-char *edit_name;
-	if(head_student == NULL){printf("The list is empty.\n");}
-		
+char *edit_name ;
+	if(head_student == NULL)
+		printf("The list is empty.\n");
 	else
 	{
 
@@ -25,9 +25,10 @@ char *edit_name;
 		{
 			if(head_student->m_id == ID)
 			{
+			    fflush(stdin);
             printf("edit name =");
 			gets(edit_name);
-			strcpy(head_student->m_name,edit_name);
+			head_student->m_name=edit_name;
 				flag = 1;
 				break;
 			}
