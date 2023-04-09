@@ -184,13 +184,44 @@ void Add_student_record(s_student* head, char* name, char* gender, char* passwor
 		ptr = ptr->link;
 		if (temp->m_id == ptr->m_id)
 			flag = 0;
+	}
+	if (flag)
+	{
+		ptr->link = temp;
+		printf("Student record added succesfully");
+	}
+	else
+		printf("The entered ID already exists!");
+}
 
-		if (flag)
+/*
+------------------------------------------------------------------------------------------------
+									Function Definition		                	    		   |
+------------------------------------------------------------------------------------------------
+Name: Edit admin password																	   |
+Parameters: it takes parameters (pointer to head of admins linked list, admin's ID ).		   |
+Return: it returns no thing.                                                                   |
+Usage: it is used to edit admin's password after checking if the id exists.                    |
+------------------------------------------------------------------------------------------------
+*/
+
+void Edit_Admin_Password(s_admin* head, long id)        
+{
+	int flag = 0;
+	s_admin* ptr = head;
+	while (ptr != NULL)
+	{
+		if (ptr->m_adminID == id)
 		{
-			ptr->link = temp;
-			printf("Student record added succesfully");
+			printf("Enter the new password:");
+			scanf("%s", &ptr->m_adminPassword);
+			printf("password is edited succesfully\n");
+			flag = 1;
+			break;
 		}
 		else
-			printf("The entered ID already exists!");
+			ptr = ptr->link;
 	}
+	if (flag == 0)
+		printf("Entered ID doesn't exist!\n");
 }

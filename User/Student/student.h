@@ -10,5 +10,13 @@ typedef struct student
     long m_id;
     struct student* link;
 }s_student;
+
+/*
+---------------------------------------------------
+            functions prototypes
+---------------------------------------------------
+*/
+
 void Edit_student_name(s_student *head_student,long ID);
+void Edit_Student_Password(s_student* head, long id);
 #endif

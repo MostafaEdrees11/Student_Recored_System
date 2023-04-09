@@ -39,3 +39,35 @@ char *edit_name ;
 	}
 
 }
+
+/*
+------------------------------------------------------------------------------------------------
+									Function Definition		                	    		   |
+------------------------------------------------------------------------------------------------
+Name: Edit student password																	   |
+Parameters: it takes parameters (pointer to head of student linked list, student's ID ).		   |
+Return: it returns no thing.                                                                   |
+Usage: it is used to edit student's password after checking if the id exists.                    |
+------------------------------------------------------------------------------------------------
+*/
+
+void Edit_Student_Password(s_student* head, long id)
+{
+	int flag = 0;
+	s_student* ptr = head;
+	while (ptr != NULL)
+	{
+		if (ptr->m_id == id)
+		{
+			printf("Enter the new password:");
+			scanf("%s", &ptr->m_password);
+			printf("password is edited succesfully\n");
+			flag = 1;
+			break;
+		}
+		else
+			ptr = ptr->link;
+	}
+	if (flag == 0)
+		printf("Entered ID doesn't exist!\n");
+}
