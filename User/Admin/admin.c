@@ -154,3 +154,42 @@ int new_grade;
 	}
 
 }
+
+/*
+------------------------------------------------------------------------------------------------
+									Function Definition		                	    		   |
+------------------------------------------------------------------------------------------------
+Name: Add student record		                                                               |
+Parameters: it takes parameters (pointer to head of students linked list, student data ).      |
+Return: it returns no thing.                                                                   |
+Usage: it is used to add student record by entered the student data .                          |
+------------------------------------------------------------------------------------------------
+*/
+void Add_student_record(s_student* head, char* name, char* gender, char* password, int grade, int age, long id)
+{
+	int flag = 1;         //used to indicate whether the id is unique or not
+	s_student* ptr, * temp = NULL;
+	ptr = head;
+	temp = (s_student*)malloc(sizeof(s_student));
+	temp->m_name = name;
+	temp->m_gender = gender;
+	temp->m_password = password;
+	temp->m_grade = grade;
+	temp->m_age = age;
+	temp->m_id = id;
+	temp->link = NULL;
+
+	while (ptr != NULL)
+	{
+		ptr = ptr->link;
+		if (temp->m_id == ptr->m_id)
+			flag = 0;
+
+		if (flag)
+		{
+			ptr->link = temp;
+			printf("Student record added succesfully");
+		}
+		else
+			printf("The entered ID already exists!");
+	}
