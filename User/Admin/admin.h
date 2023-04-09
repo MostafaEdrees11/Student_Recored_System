@@ -19,4 +19,5 @@ typedef struct admin
 void View_all_records(s_student *head_student);
 void Remove_student_record (s_student **head_student,long ID);
 void Edit_student_grade(s_student *head_student,long ID);
+void Add_student_record(s_student* head, char* name, char* gender, char* password, int grade, int age, long id);
 #endif
