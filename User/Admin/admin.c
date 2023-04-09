@@ -193,3 +193,4 @@ void Add_student_record(s_student* head, char* name, char* gender, char* passwor
 		else
 			printf("The entered ID already exists!");
 	}
+}
