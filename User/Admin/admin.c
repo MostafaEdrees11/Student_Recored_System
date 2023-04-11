@@ -1,9 +1,10 @@
-#include <admin.h>
-#include "system.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include "student.h"
+#include "admin.h"
+#include "..\..\System\system.h"
+#include "..\Student\student.h"
 
 /*
 ------------------------------------------------------------------------------------------------
@@ -129,7 +130,7 @@ Return: it returns no thing.                                                    
 Usage: it is used to Edit student grade by entered the student ID . |
 ------------------------------------------------------------------------------------------------
 */
-void Edit_student_grade(s_student *head_student,int ID){
+void Edit_student_grade(s_student *head_student,long ID){
 int flag = 0; /* use flag to check id is exist or not flag=1 this means id is exist ,
               if flag=0 this means id isn't exist*/
 int new_grade;

@@ -4,6 +4,8 @@
 // Total_Length is a macro used to specifiy length of printing (variable + white spaces)
 #define Total_Length 30
 
+#include "..\User\Student\student.h"
+
 /*
 ---------------------------------------------------
 			functions prototypes

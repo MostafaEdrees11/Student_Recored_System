@@ -1,7 +1,10 @@
+#include <stdio.h>
 #include "system.h"
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include "..\User\Student\student.h"
+#include "..\User\Admin\admin.h"
 
 
 /*

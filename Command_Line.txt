@@ -1,0 +1,1 @@
+gcc "Application\application.c" "System\system.c" "User\Admin\admin.c" "User\Student\student.c" -o Student_Record_System.exe
