@@ -165,33 +165,51 @@ Return: it returns no thing.                                                    
 Usage: it is used to add student record by entered the student data .                          |
 ------------------------------------------------------------------------------------------------
 */
-void Add_student_record(s_student* head, char* name, char* gender, char* password, int grade, int age, long id)
+void Add_student_record(s_student** head, char* name, char* gender, char* password, int grade, int age, long id)
 {
-	int flag = 1;         //used to indicate whether the id is unique or not
-	s_student* ptr, * temp = NULL;
-	ptr = head;
-	temp = (s_student*)malloc(sizeof(s_student));
-	temp->m_name = name;
-	temp->m_gender = gender;
-	temp->m_password = password;
-	temp->m_grade = grade;
-	temp->m_age = age;
-	temp->m_id = id;
-	temp->link = NULL;
 
-	while (ptr != NULL)
+	int flag = 1;         //used to indicate whether the id is unique or not
+	s_student* ptr = *head;
+
+
+
+	if (ptr == NULL)
 	{
-		ptr = ptr->link;
-		if (temp->m_id == ptr->m_id)
-			flag = 0;
-	}
-	if (flag)
-	{
-		ptr->link = temp;
-		printf("Student record added succesfully");
+		ptr->m_name = name;
+		ptr->m_gender = gender;
+		ptr->m_password = password;
+		ptr->m_grade = grade;
+		ptr->m_age = age;
+		ptr->m_id = id;
+		ptr->link = NULL;
+		printf("hi\n");
+		printf("Student record added succesfully111\n");
 	}
 	else
-		printf("The entered ID already exists!");
+	{
+		while (ptr->link != NULL)
+		{
+			ptr = ptr->link;
+			if (ptr->m_id == id)
+				flag = 0;
+		}
+
+		if (flag)
+		{
+			s_student* temp = (s_student*)malloc(sizeof(s_student));
+			temp->m_name = name;
+			temp->m_gender = gender;
+			temp->m_password = password;
+			temp->m_grade = grade;
+			temp->m_age = age;
+			temp->m_id = id;
+			temp->link = NULL;
+			ptr->link = temp;
+			printf("Student record added succesfully\n");
+		}
+		else
+			printf("The entered ID already exists!\n");
+	}
 }
 
 /*
