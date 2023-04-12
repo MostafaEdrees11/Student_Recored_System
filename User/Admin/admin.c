@@ -107,6 +107,7 @@ void Remove_student_record (s_student **head_student,long ID)
 			free(current);    // free the memory
 			current=NULL;
 			
+			printf("\n");
 			printf("***********************************************************\n");
 			printf("|              Removed Student succesfully                |\n");
 			printf("***********************************************************\n");
@@ -123,7 +124,8 @@ void Remove_student_record (s_student **head_student,long ID)
 			                               // now node(student record of this id) will be disconnceted from the linked list
 					free(current);           //free the memory
 					current = NULL;
-				
+					
+					printf("\n");
 					printf("***********************************************************\n");
 					printf("|              Removed Student succesfully                |\n");
 					printf("***********************************************************\n");
@@ -140,14 +142,14 @@ void Remove_student_record (s_student **head_student,long ID)
 		{
 			printf("\n");
 			printf("***********************************************************\n");
-			printf("|            The entered ID is wrong!!!              |\n");
+			printf("|              The entered ID is wrong!!!                 |\n");
 			printf("***********************************************************\n");
 		}
 		else if(flag==1)
 		 {
 			printf("\n");
 			printf("***********************************************************\n");
-			printf("|           Removed student record is done           |\n");
+			printf("|              Removed student record is done             |\n");
 			printf("***********************************************************\n");
 		}
 		
@@ -193,11 +195,7 @@ int new_grade;
 		{
 			printf("\n");
 			printf("***********************************************************\n");
-<<<<<<< HEAD
 			printf("|                Entered ID doesn't exist!                |\n");
-=======
-			printf("|            The entered ID is wrong!               |\n");
->>>>>>> 445d6a118226d28634788f41b0215c68e4c7718f
 			printf("***********************************************************\n");
 		}
 	}
