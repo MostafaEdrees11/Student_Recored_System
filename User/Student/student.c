@@ -50,17 +50,24 @@ char *edit_name ;
 		{
 			if(head_student->m_id == ID)
 			{
-			    fflush(stdin);
-            printf("edit name =");
+		    fflush(stdin);
+            printf("\nEdit your name: ");
 			gets(edit_name);
 			head_student->m_name=edit_name;
-				flag = 1;
-				break;
+			printf("\n");
+			printf("***********************************************************\n");
+			printf("|              name is edited succesfully               |\n");
+			printf("***********************************************************\n");
+			flag = 1;
+			break;
 			}
 			head_student = head_student->link;
 		}
 		if(flag == 0)
-		printf("Wrong ID !!!\n");
+		    printf("\n");
+			printf("***********************************************************\n");
+			printf("|            The entered ID doesn't exist!               |\n");
+			printf("***********************************************************\n");
 	}
 
 }

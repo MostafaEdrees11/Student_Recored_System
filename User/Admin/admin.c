@@ -131,9 +131,18 @@ void Remove_student_record (s_student **head_student,long ID)
 		{
 			printf("\n");
 			printf("***********************************************************\n");
-			printf("|            The entered ID already exists!               |\n");
+			printf("|            The entered ID is wrong!!!              |\n");
 			printf("***********************************************************\n");
 		}
+		else if(flag==1)
+		 {
+			printf("\n");
+			printf("***********************************************************\n");
+			printf("|           Removed student record is done           |\n");
+			printf("***********************************************************\n");
+		}
+		
+		
 	}
 }
 
@@ -175,7 +184,7 @@ int new_grade;
 		{
 			printf("\n");
 			printf("***********************************************************\n");
-			printf("|            The entered ID already exists!               |\n");
+			printf("|            The entered ID is wrong!               |\n");
 			printf("***********************************************************\n");
 		}
 	}
