@@ -55,7 +55,11 @@ void View_student_record(s_student *head,long ID)
 	}
 	
 	if(flag == 0)
-		printf("Wrong ID !!!\n");
+	{
+		printf("***********************************************************\n");
+		printf("|                Entered ID doesn't exist!                |\n");
+		printf("***********************************************************\n");
+	}
 }
 
 

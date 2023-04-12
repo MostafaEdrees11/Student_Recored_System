@@ -106,6 +106,10 @@ void Remove_student_record (s_student **head_student,long ID)
 			*head_student = current->link;
 			free(current);    // free the memory
 			current=NULL;
+			
+			printf("***********************************************************\n");
+			printf("|              Removed Student succesfully                |\n");
+			printf("***********************************************************\n");
 			flag=1;
 		}
 		else
@@ -118,6 +122,11 @@ void Remove_student_record (s_student **head_student,long ID)
 					previous->link = current->link; //previous now  doesn't point to this student record(this id of student want to remove) but point to after this ,
 			                               // now node(student record of this id) will be disconnceted from the linked list
 					free(current);           //free the memory
+					current = NULL;
+				
+					printf("***********************************************************\n");
+					printf("|              Removed Student succesfully                |\n");
+					printf("***********************************************************\n");
 					flag=1;
 					break;
 				}
@@ -175,7 +184,7 @@ int new_grade;
 		{
 			printf("\n");
 			printf("***********************************************************\n");
-			printf("|            The entered ID already exists!               |\n");
+			printf("|                Entered ID doesn't exist!                |\n");
 			printf("***********************************************************\n");
 		}
 	}
@@ -300,6 +309,7 @@ void Edit_Admin_Password(s_admin* head, long id)
 	{
 		if (head->m_adminID == id)
 		{
+			flag = 1;
 			printf("Note: password is only 4 characters.\n");
 			printf("Enter the new password:");
 			for(counter = 0; counter < 4; counter++)
@@ -327,7 +337,6 @@ void Edit_Admin_Password(s_admin* head, long id)
 				printf("|             Password is edited succesfully              |\n");
 				printf("***********************************************************\n");
 				printf("\n");
-				flag = 1;
 				break;
 			}
 			else
@@ -336,10 +345,10 @@ void Edit_Admin_Password(s_admin* head, long id)
 				printf("***********************************************************\n");
 				printf("|          The two password aren't equivalent.            |\n");
 				printf("***********************************************************\n");
-				Admin_Mode(id);
+				printf("\n");
+				Edit_Admin_Password(head,id);
 				break;
 			}
-			
 		}
 		else
 			head = head->link;

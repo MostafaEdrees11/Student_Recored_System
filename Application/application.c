@@ -238,6 +238,9 @@ void Admin_Mode(long admin_id)
 		printf("|                  Remove Student Record                  |\n");
 		printf("***********************************************************\n");
 		printf("\n");
+		printf("Enter ID: ");
+		scanf("%ld",&Entered_ID);
+		Remove_student_record(&head_student,Entered_ID);
 		break;
 		
 		case 3:
@@ -318,6 +321,7 @@ void Student_Mode(long id)
 		printf("|                  Edit Your Name                         |\n");
 		printf("***********************************************************\n");
 		printf("\n");
+		Edit_student_name(head_student,id);
 		break;
 		
 	}
