@@ -70,7 +70,7 @@ void Start_Program(void)
 		
 		printf("\n");
 		printf("Do you want to run again??\n");
-		printf("Press y to continue ....");
+		printf("Press y to continue .... ");
 	}while(getch() == 'y');
 	
 	
@@ -117,17 +117,28 @@ void Login(void)
 		{
 			if(ptr_admin->m_adminID == Entered_ID)
 			{
+				printf("\nbefore sent it: %s\n",ptr_admin->m_adminPassword);
 				password_state = Check_Password(ptr_admin->m_adminPassword);
 				if(password_state == 1)
+				{
+					//printf("\n%s\n",ptr_admin->m_adminPassword);
 					Admin_Mode(ptr_admin->m_adminID);
+				}
 				flag = 1;
 				break;
 			}
 			ptr_admin = ptr_admin->link;
 		}
+		free(ptr_admin);
+		ptr_admin = NULL;
 		
 		if(flag == 0)
-			printf("ID Doesn't exist.\n");
+		{
+			printf("\n");
+			printf("***********************************************************\n");
+			printf("|                Entered ID doesn't exist!                |\n");
+			printf("***********************************************************\n");
+		}
 	}
 	else if(choose_mode == 2)  //login for student
 	{	
@@ -148,6 +159,9 @@ void Login(void)
 			}
 			ptr_student = ptr_student->link;
 		}
+
+		free(ptr_student);
+		ptr_student = NULL;
 		
 		if(flag == 0)
 		{
@@ -160,23 +174,27 @@ void Login(void)
 	
 }
 
+//this function used to check the password and the user has 3 attempts
 int Check_Password(char *password)
 {
 	int counter, pass_correct_or_not;
 	static int num_attempts = 0;
 	char Entered_Password[5];
 	
-	printf("\nNote: password is only 4 characters.\n");
-	printf("Enter Your Password: ");
-	for(counter = 0; counter < 4; counter++)
-	{
-		Entered_Password[counter] = getch();
-		printf("*");
-	}
-	Entered_Password[counter] = '\0';
 	
-	if(num_attempts < 2)
+	//printf("\n%s\n",Entered_Password);
+	//printf("given: %s\n",password);
+	
+	if(num_attempts < 3)
 	{
+		printf("\nNote: password is only 4 characters.\n");
+		printf("Enter Your Password: ");
+		for(counter = 0; counter < 4; counter++)
+		{
+			Entered_Password[counter] = getch();
+			printf("*");
+		}
+		Entered_Password[counter] = '\0';
 		if(strcmp(Entered_Password,password) == 0)
 		{
 			num_attempts = 0;
@@ -184,6 +202,8 @@ int Check_Password(char *password)
 		}
 		else
 		{
+			//printf("\n%s\n",Entered_Password);
+			//printf("\n%s\n",password);
 			printf("\n\n");
 			printf("***********************************************************\n");
 			printf("|                   Wrong Password !!!                    |\n");
@@ -196,10 +216,8 @@ int Check_Password(char *password)
 	{
 		pass_correct_or_not = 0;
 		num_attempts = 0;
-		printf("\n\n");
 		printf("***********************************************************\n");
-		printf("|                   Wrong Password !!!                    |\n");
-		printf("|                   You can't try again !!!               |\n");
+		printf("|                You can't try again !!!                  |\n");
 		printf("***********************************************************\n");
 		printf("\n");
 	}
@@ -235,7 +253,8 @@ void Admin_Mode(long admin_id)
 		printf("|                  Add Student Record                     |\n");
 		printf("***********************************************************\n");
 		printf("\n");
-		Add_student_record(&head_student);
+		//Add_student_record(&head_student);
+		Add_student_record(head_student);
 		break;
 		
 		case 2:
@@ -271,7 +290,11 @@ void Admin_Mode(long admin_id)
 		printf("|                  Edit Admin Password                    |\n");
 		printf("***********************************************************\n");
 		printf("\n");
-		Edit_Admin_Password(head_admin,admin_id);
+		//printf("\n%s\n",head_admin->m_adminPassword);
+		//Edit_Admin_Password(admin_id);
+		//Edit_Admin_Password(head_admin,admin_id); 
+		Edit_Admin_Password(&head_admin,admin_id);	
+		//printf("\n%s\n",head_admin->m_adminPassword);
 		break;
 		
 		case 6:
