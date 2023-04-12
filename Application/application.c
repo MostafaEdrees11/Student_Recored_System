@@ -313,6 +313,7 @@ void Student_Mode(long id)
 		printf("***********************************************************\n");
 		printf("|                  Edit Your Password                     |\n");
 		printf("***********************************************************\n");
+		Edit_Student_Password(head_student,id);
 		printf("\n");
 		break;
 		
