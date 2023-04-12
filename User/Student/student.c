@@ -50,6 +50,7 @@ char *edit_name ;
 		{
 			if(head_student->m_id == ID)
 			{
+<<<<<<< HEAD
 			    fflush(stdin);
 				printf("Enter New Name: ");
 				gets(edit_name);
@@ -59,16 +60,35 @@ char *edit_name ;
 				printf("|             Edited Student Name Succesfully             |\n");
 				printf("***********************************************************\n");
 				break;
+=======
+		    fflush(stdin);
+            printf("\nEdit your name: ");
+			gets(edit_name);
+			head_student->m_name=edit_name;
+			printf("\n");
+			printf("***********************************************************\n");
+			printf("|              name is edited succesfully               |\n");
+			printf("***********************************************************\n");
+			flag = 1;
+			break;
+>>>>>>> 445d6a118226d28634788f41b0215c68e4c7718f
 			}
 			head_student = head_student->link;
 		}
 		if(flag == 0)
+<<<<<<< HEAD
 		{
 			printf("\n");
 			printf("***********************************************************\n");
 			printf("|            The entered ID already exists!               |\n");
 			printf("***********************************************************\n");
 		}
+=======
+		    printf("\n");
+			printf("***********************************************************\n");
+			printf("|            The entered ID doesn't exist!               |\n");
+			printf("***********************************************************\n");
+>>>>>>> 445d6a118226d28634788f41b0215c68e4c7718f
 	}
 
 }
