@@ -203,164 +203,92 @@ Return: it returns no thing.                                                    
 Usage: it is used to add student record by entered the student data .                          |
 ------------------------------------------------------------------------------------------------
 */
-/*void Add_student_record(s_student** head)
+
+void Add_student_record(s_student** head)
 {
-	char *name, *gender, *password;
-	int grade, age;
-	long id;
-	
-	printf("Enter Name: ");
-	fflush(stdin); fflush(stdout);
-	scanf("%[^\n]%*c",&name); 
-	//gets(name);
-	
-	printf("Enter ID: ");
-	fflush(stdin);
-	scanf("%ld",&id);
-	
-	printf("Enter Gender: ");
-	fflush(stdin);
-	scanf("%[^\n]%*c",&gender);
-	//gets(gender);
-	
-	printf("Enter Password: ");
-	fflush(stdin);
-	scanf("%[^\n]%*c",&password);
-	//gets(password);
-	
-	printf("Enter Grade: ");
-	fflush(stdin);
-	scanf("%d",&grade);
-	
-	printf("Enter Age: ");
-	fflush(stdin);
-	scanf("%d",&age);
-	
-	int flag = 1;         //used to indicate whether the id is unique or not
-	s_student* ptr = *head;
+    char name[100], gender[100], password[100];
+    int grade, age;
+    long id;
 
+    printf("Enter Name: ");
+	fflush(stdin);
+    fgets(name, 100, stdin);
+    name[strcspn(name, "\n")] = '\0';
 
-	if (ptr == NULL)
+    printf("Enter ID: ");
+    scanf("%ld", &id);
+
+    printf("Enter Gender: ");
+	fflush(stdin);
+    fgets(gender, 100, stdin);
+    gender[strcspn(gender, "\n")] = '\0';
+
+    printf("Enter Password: ");
+	fflush(stdin);
+    fgets(password, 100, stdin);
+    password[strcspn(password, "\n")] = '\0';
+
+    printf("Enter Grade: ");
+    scanf("%d", &grade);
+
+    printf("Enter Age: ");
+    scanf("%d", &age);
+
+    // Allocate memory for the new student record
+    s_student* temp = (s_student*)malloc(sizeof(s_student));
+    if(temp == NULL)
 	{
-		ptr->m_name = name;
-		ptr->m_gender = gender;
-		ptr->m_password = password;
-		ptr->m_grade = grade;
-		ptr->m_age = age;
-		ptr->m_id = id;
-		ptr->link = NULL;
+        printf("Error: Failed to allocate memory\n");
+        return;
+    }
 
-		printf("\n");
-		printf("***********************************************************\n");
-		printf("|            Student record added succesfully             |\n");
-		printf("***********************************************************\n");
-	}
-	else
-	{
-		while (ptr->link != NULL)
-		{
-			ptr = ptr->link;
-			if (ptr->m_id == id)
-				flag = 0;
-		}
-
-		if (flag)
-		{
-			s_student* temp = (s_student*)malloc(sizeof(s_student));
-			temp->m_name = name;
-			temp->m_gender = gender;
-			temp->m_password = password;
-			temp->m_grade = grade;
-			temp->m_age = age;
-			temp->m_id = id;
-			temp->link = NULL;
-			ptr->link = temp;
-			
-			printf("\n");
-			printf("***********************************************************\n");
-			printf("|            Student record added succesfully             |\n");
-			printf("***********************************************************\n");
-		}
-		else
-		{
-			printf("\n");
-			printf("***********************************************************\n");
-			printf("|            The entered ID already exists!               |\n");
-			printf("***********************************************************\n");
-		}
-	}
-}*/
-
-void Add_student_record(s_student* head)
-{
-	
-	char *name, *gender, *password;
-	int grade, age;
-	long id;
-	
-	/* printf("Enter Name: ");
-	fflush(stdin); fflush(stdout);
-	scanf("%[^\n]%*c",&name); */
-	//gets(name);
-	name = "Mostafa";
-	
-	printf("Enter ID: ");
-	fflush(stdin);
-	scanf("%ld",&id);
-	
-	/* printf("Enter Gender: ");
-	fflush(stdin);
-	scanf("%[^\n]%*c",&gender); */
-	//gets(gender);
-	gender = "Male";
-	
-	/* printf("Enter Password: ");
-	fflush(stdin);
-	scanf("%[^\n]%*c",&password); */
-	//gets(password);
-	password = "6546";
-	
-	printf("Enter Grade: ");
-	fflush(stdin);
-	scanf("%d",&grade);
-	
-	printf("Enter Age: ");
-	fflush(stdin);
-	scanf("%d",&age);
-
-    int flag = 1;         //used to indicate whether the id is unique or not
-    s_student *ptr,*temp = NULL;
-    ptr = head;
-    temp = (s_student*)malloc(sizeof(s_student));
-    //temp->m_name = name;
-    //temp->m_gender = gender;
-    //temp->m_password = password;
+    // Copy the input strings to the newly allocated memory
+    temp->m_name = strdup(name);
+    temp->m_gender = strdup(gender);
+    temp->m_password = strdup(password);
     temp->m_grade = grade;
     temp->m_age = age;
     temp->m_id = id;
     temp->link = NULL;
 
-    /*if (ptr==NULL)
-    {
-        ptr=temp;
-        printf("hi\n");
-        printf("Student record added succesfully111\n");
-    }*/
-  
-	while (ptr->link != NULL)
+    // Check if the new record's ID is unique
+    s_student* ptr = *head;
+    while(ptr != NULL)
 	{
-		ptr = ptr->link;
-		if (temp->m_id == ptr->m_id)
-			flag = 0;
-	}
+        if(ptr->m_id == temp->m_id)
+		{
+			printf("***********************************************************\n");
+            printf("|            The entered ID already exists!               |\n");
+			printf("***********************************************************\n");
+            free(temp->m_name);
+            free(temp->m_gender);
+            free(temp->m_password);
+            free(temp);
+            return;
+        }
+        ptr = ptr->link;
+    }
 
-	if(flag)
+    // Add the new record to the linked list
+    if (*head == NULL)
 	{
-		ptr->link = temp;
-		printf("Student record added succesfully\n");
-	}
+        *head = temp;
+		printf("***********************************************************\n");
+        printf("|           Student record added successfully             |\n");
+		printf("***********************************************************\n");
+    } 
 	else
-		printf("The entered ID already exists!\n");
+	{
+        ptr = *head;
+        while(ptr->link != NULL)
+		{
+            ptr = ptr->link;
+        }
+        ptr->link = temp;
+        printf("***********************************************************\n");
+        printf("|           Student record added successfully             |\n");
+		printf("***********************************************************\n");
+    }
 }
 
 
@@ -375,13 +303,57 @@ Usage: it is used to edit admin's password after checking if the id exists.     
 ------------------------------------------------------------------------------------------------
 */
 
-void Edit_Admin_Password(s_admin **head,long id)        
+
+// void Edit_Admin_Password(s_admin *head,long id)
+// {
+    // int flag = 0, counter;
+    // //char password[5],confirm_password[5];
+    // char password[5];
+
+    // //s_adminptr = head;
+
+    // while (head != NULL)
+    // {
+        // if (head->m_adminID == id)
+        // {
+            // flag = 1;
+            // printf("Note: password is only 4 characters.\n");
+            // printf("Enter the new password:");
+            // for(counter = 0; counter < 4; counter++)
+            // {
+                // fflush(stdin);
+                // password[counter] = getch();
+                // printf("");
+            // }
+            // password[counter] = '\0';
+
+            // head->m_adminPassword = password;
+            // printf("\n");
+            // printf("**\n");
+            // printf("|              password is updated succesfully            |\n");
+            // printf("**\n");
+            // printf("%s",head->m_adminPassword);
+            // flag = 1;
+            // break;
+        // }
+        // head= head->link;
+    // }
+    // if(flag == 0)
+        // {
+            // printf("\n");
+            // printf("**\n");
+            // printf("|                Entered ID doesn't exist!                |\n");
+            // printf("**\n");
+        // }
+// }
+
+
+s_admin * Edit_Admin_Password(s_admin *head,long id)        
 {
 	int flag = 0, counter;
-	//char password[5],confirm_password[5];
 	char password[5];
 	
-	s_admin *ptr = *head;
+	s_admin *ptr = head;
 	if(ptr->m_adminID == id)
 	{
 		flag = 1;
@@ -395,8 +367,8 @@ void Edit_Admin_Password(s_admin **head,long id)
 		}
 		password[counter] = '\0';
 		
-		(*head)->m_adminPassword = password;
-		printf("\nafter: %s\n",(*head)->m_adminPassword);
+		head->m_adminPassword = password;
+		printf("\nafter: %s\n",head->m_adminPassword);
 		printf("%s\n",password);
 	}
 	else
@@ -417,11 +389,20 @@ void Edit_Admin_Password(s_admin **head,long id)
 				password[counter] = '\0';
 				
 				ptr->m_adminPassword = password;
+				break;
 			}
 			ptr = ptr->link;
 		}
 	}
-	/*while (head != NULL)
+	
+	if (flag == 0)
+		printf("Entered ID doesn't exist!\n");
+	
+	return ptr;
+}
+
+
+/*while (head != NULL)
 	{
 		if (head->m_adminID == id)
 		{
@@ -449,7 +430,7 @@ void Edit_Admin_Password(s_admin **head,long id)
 			
 			// printf("\n%s\n",password);
 			// printf("\n%s\n",head->m_adminPassword);
-			//printf("%s\n",confirm_password);
+			// printf("%s\n",confirm_password);
 			
 			/*if(strcmp(password,confirm_password) == 0)
 			{
@@ -477,6 +458,3 @@ void Edit_Admin_Password(s_admin **head,long id)
 		}
 		head = head->link;
 	}*/
-	if (flag == 0)
-		printf("Entered ID doesn't exist!\n");
-}

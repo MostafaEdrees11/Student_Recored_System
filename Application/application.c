@@ -118,6 +118,7 @@ void Login(void)
 			if(ptr_admin->m_adminID == Entered_ID)
 			{
 				printf("\nbefore sent it: %s\n",ptr_admin->m_adminPassword);
+				printf("%s\n",head_admin->m_adminPassword);
 				password_state = Check_Password(ptr_admin->m_adminPassword);
 				if(password_state == 1)
 				{
@@ -129,8 +130,6 @@ void Login(void)
 			}
 			ptr_admin = ptr_admin->link;
 		}
-		free(ptr_admin);
-		ptr_admin = NULL;
 		
 		if(flag == 0)
 		{
@@ -159,9 +158,6 @@ void Login(void)
 			}
 			ptr_student = ptr_student->link;
 		}
-
-		free(ptr_student);
-		ptr_student = NULL;
 		
 		if(flag == 0)
 		{
@@ -253,8 +249,7 @@ void Admin_Mode(long admin_id)
 		printf("|                  Add Student Record                     |\n");
 		printf("***********************************************************\n");
 		printf("\n");
-		//Add_student_record(&head_student);
-		Add_student_record(head_student);
+		Add_student_record(&head_student);
 		break;
 		
 		case 2:
@@ -291,9 +286,9 @@ void Admin_Mode(long admin_id)
 		printf("***********************************************************\n");
 		printf("\n");
 		//printf("\n%s\n",head_admin->m_adminPassword);
-		//Edit_Admin_Password(admin_id);
-		//Edit_Admin_Password(head_admin,admin_id); 
-		Edit_Admin_Password(&head_admin,admin_id);	
+		//Edit_Admin_Password(&head_admin,admin_id); 
+		head_admin = Edit_Admin_Password(head_admin,admin_id);
+		//Edit_Admin_Password(head_admin,admin_id);	
 		//printf("\n%s\n",head_admin->m_adminPassword);
 		break;
 		
