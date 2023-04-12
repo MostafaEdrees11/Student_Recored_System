@@ -4,19 +4,19 @@
 #include <stdlib.h>
 #include "..\User\Student\student.h"
 #include "..\User\Admin\admin.h"
+#include "..\System\system.h"
 #include "application.h"
 
+extern s_student *head_student;
+extern s_admin *head_admin;
 
 int choose_mode;
 
 int main()
 {
-	printf("\n");
-	printf("***********************************************************\n");
-	printf("|               << Welcome To Our Project >>              |\n");
-	printf("|               << Student Record System  >>              |\n");
-	printf("***********************************************************\n");
-	printf("\n\n");
+	//add one admin and two students at when we start the program
+	add_admin_at_start();
+	add_student_at_start();
 	
 	Start_Program();
 	
@@ -26,22 +26,16 @@ int main()
 
 
 void Start_Program(void)
-{
-	//add one admin and two students at when we start the program
-	s_admin *head_admin = (s_admin *)malloc(sizeof(s_admin));
-
-	head_admin->m_adminName = "Admin1";
-	head_admin->m_adminID = 1000;
-	head_admin->m_adminPassword = "1234";
-	head_admin->link = NULL;
-	
-	s_student *head_student = (s_student *)malloc(sizeof(s_student));
-	Add_student_record(&head_student,"Student1","Male","1111",95,20,10002056);
-	Add_student_record(&head_student,"Student2","Female","2222",97,20,10002057);
-	
+{	
 	do
 	{
 		printf("\n");
+		printf("***********************************************************\n");
+		printf("|               << Welcome To Our Project >>              |\n");
+		printf("|               << Student Record System  >>              |\n");
+		printf("***********************************************************\n");
+		printf("\n");
+
 		printf("***********************************************************\n");
 		printf("|Admin   Mode               >>                     |Press1|\n");
 		printf("|Student Mode               >>                     |Press2|\n");
@@ -57,14 +51,20 @@ void Start_Program(void)
 			printf("***********************************************************\n");
 			printf("|               << Welcome To Admin Mode >>               |\n");
 			printf("***********************************************************\n");
-			Login(head_admin,head_student);
+			Login();
 			break;
 			
 			case 2:
 			printf("***********************************************************\n");
 			printf("|               << Welcome To Student Mode >>             |\n");
 			printf("***********************************************************\n");
-			Login(head_admin,head_student);
+			Login();
+			break;
+			
+			default:
+			printf("***********************************************************\n");
+			printf("|                You Enter Wrong Choose.                  |\n");
+			printf("***********************************************************\n");
 			break;
 		}
 		
@@ -95,7 +95,7 @@ void Start_Program(void)
 	printf("***********************************************************\n");
 }
 
-void Login(s_admin *head_admin, s_student *head_student)
+void Login(void)
 {
 	int flag = 0, password_state;
 	
@@ -119,7 +119,7 @@ void Login(s_admin *head_admin, s_student *head_student)
 			{
 				password_state = Check_Password(ptr_admin->m_adminPassword);
 				if(password_state == 1)
-					Admin_Mode();
+					Admin_Mode(ptr_admin->m_adminID);
 				flag = 1;
 				break;
 			}
@@ -134,7 +134,7 @@ void Login(s_admin *head_admin, s_student *head_student)
 		long Entered_ID;
 		
 		printf("Enter Your ID: ");
-		scanf("%ld",Entered_ID);
+		scanf("%ld",&Entered_ID);
 		
 		while(ptr_student != NULL)
 		{
@@ -142,7 +142,7 @@ void Login(s_admin *head_admin, s_student *head_student)
 			{
 				password_state = Check_Password(ptr_student->m_password);
 				if(password_state == 1)
-					Student_Mode();
+					Student_Mode(ptr_student->m_id);
 				flag = 1;
 				break;
 			}
@@ -161,7 +161,7 @@ int Check_Password(char *password)
 	static int num_attempts = 0;
 	char Entered_Password[5];
 	
-	printf("Note: password is only 4 characters.\n");
+	printf("\nNote: password is only 4 characters.\n");
 	printf("Enter Your Password: ");
 	for(counter = 0; counter < 4; counter++)
 	{
@@ -170,30 +170,42 @@ int Check_Password(char *password)
 	}
 	Entered_Password[counter] = '\0';
 	
-	if(num_attempts < 3)
+	if(num_attempts < 2)
 	{
 		if(strcmp(Entered_Password,password) == 0)
+		{
+			num_attempts = 0;
 			pass_correct_or_not = 1;
+		}
 		else
 		{
-			printf("\nWrong Password !!! \n");
-			pass_correct_or_not = Check_Password(password);
+			printf("\n\n");
+			printf("***********************************************************\n");
+			printf("|                   Wrong Password !!!                    |\n");
+			printf("***********************************************************\n");
 			num_attempts++;
+			pass_correct_or_not = Check_Password(password);
 		}
 	}
 	else
 	{
 		pass_correct_or_not = 0;
-		printf("\nWrong Password !!! \n");
-		printf("You can't try again.\n");
+		num_attempts = 0;
+		printf("\n\n");
+		printf("***********************************************************\n");
+		printf("|                   Wrong Password !!!                    |\n");
+		printf("|                   You can't try again !!!               |\n");
+		printf("***********************************************************\n");
+		printf("\n");
 	}
 	
 	return pass_correct_or_not;
 }
 
-void Admin_Mode(void)
+void Admin_Mode(long admin_id)
 {
 	int order;
+	long Entered_ID;
 
 	printf("\n\n");
 	
@@ -218,6 +230,7 @@ void Admin_Mode(void)
 		printf("|                  Add Student Record                     |\n");
 		printf("***********************************************************\n");
 		printf("\n");
+		Add_student_record(&head_student);
 		break;
 		
 		case 2:
@@ -232,6 +245,9 @@ void Admin_Mode(void)
 		printf("|                  View Student Record                    |\n");
 		printf("***********************************************************\n");
 		printf("\n");
+		printf("Enter ID: ");
+		scanf("%ld",&Entered_ID);
+		View_student_record(head_student,Entered_ID);
 		break;
 		
 		case 4:
@@ -239,6 +255,7 @@ void Admin_Mode(void)
 		printf("|                  View All Records                       |\n");
 		printf("***********************************************************\n");
 		printf("\n");
+		View_all_records(head_student);
 		break;
 		
 		case 5:
@@ -246,6 +263,7 @@ void Admin_Mode(void)
 		printf("|                  Edit Admin Password                    |\n");
 		printf("***********************************************************\n");
 		printf("\n");
+		Edit_Admin_Password(head_admin,admin_id);
 		break;
 		
 		case 6:
@@ -253,16 +271,16 @@ void Admin_Mode(void)
 		printf("|                  Edit Student Grade                     |\n");
 		printf("***********************************************************\n");
 		printf("\n");
+		printf("Enter Student ID: ");
+		scanf("%ld",&Entered_ID);
+		Edit_student_grade(head_student,Entered_ID);
 		break;
 		
-		default:
-		Admin_Mode();
-		break;
 	}
 
 }
 
-void Student_Mode(void)
+void Student_Mode(long id)
 {
 	int order;
 	
@@ -285,6 +303,7 @@ void Student_Mode(void)
 		printf("|                  View Your Record                       |\n");
 		printf("***********************************************************\n");
 		printf("\n");
+		View_student_record(head_student,id);
 		break;
 		
 		case 2:
@@ -301,8 +320,5 @@ void Student_Mode(void)
 		printf("\n");
 		break;
 		
-		default:
-		Student_Mode();
-		break;
 	}
 }

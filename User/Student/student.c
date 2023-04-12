@@ -3,6 +3,30 @@
 #include <string.h>
 #include "student.h"
 
+s_student *head_student;
+
+void add_student_at_start(void)
+{
+	head_student = (s_student *)malloc(sizeof(s_student));
+	head_student->m_name = "Student1";
+	head_student->m_gender = "Male";
+	head_student->m_password = "1111";
+	head_student->m_grade = 95;
+	head_student->m_age = 20; 
+	head_student->m_id = 10002056;
+	head_student->link = NULL;
+	
+	s_student *new_student = (s_student *)malloc(sizeof(s_student));
+	new_student->m_name = "Student2";
+	new_student->m_gender = "Female";
+	new_student->m_password = "2222";
+	new_student->m_grade = 97;
+	new_student->m_age = 20; 
+	new_student->m_id = 10002057;
+	new_student->link = NULL;
+	head_student->link = new_student;
+}
+
 /*
 ----------------------------------------------------------------------------------------------
 									Function Definition		                	    		 |

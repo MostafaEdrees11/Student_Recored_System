@@ -14,7 +14,7 @@
 void print_int(int num);
 void print_string(char *string, int len);
 
-void View_student_record(s_student *head_student,long ID);
+void View_student_record(s_student *head,long ID);
 
 
 #endif

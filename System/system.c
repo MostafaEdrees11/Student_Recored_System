@@ -17,7 +17,7 @@ Return: it returns no thing.                                                    
 Usage: it is used to print the information of the student that we receive its ID.            |
 ----------------------------------------------------------------------------------------------
 */
-void View_student_record(s_student *head_student,long ID)
+void View_student_record(s_student *head,long ID)
 {
 	/* 
 	flag variable is used to check ID
@@ -26,31 +26,31 @@ void View_student_record(s_student *head_student,long ID)
 	*/
 	int flag = 0;
 	
-	if(head_student == NULL)
+	if(head == NULL)
 		printf("The list is empty.\n");
 	else
 	{
 		
-		while(head_student != NULL)
+		while(head != NULL)
 		{
-			if(head_student->m_id == ID)
+			if(head->m_id == ID)
 			{
 				printf("\n");
 				printf("------------------------------------------------------\n");
 				printf("|Student Information |                               |\n");
 				printf("------------------------------------------------------\n");
-				printf("|ID                  | "); print_int(head_student->m_id);
-				printf("|Name                | "); print_string(head_student->m_name,strlen(head_student->m_name));
-				printf("|Password            | "); print_string(head_student->m_password,strlen(head_student->m_password));
-				printf("|Gender              | "); print_string(head_student->m_gender,strlen(head_student->m_gender));
-				printf("|Age                 | "); print_int(head_student->m_age);
-				printf("|Grade               | "); print_int(head_student->m_grade);
+				printf("|ID                  | "); print_int(head->m_id);
+				printf("|Name                | "); print_string(head->m_name,strlen(head->m_name));
+				printf("|Password            | "); print_string(head->m_password,strlen(head->m_password));
+				printf("|Gender              | "); print_string(head->m_gender,strlen(head->m_gender));
+				printf("|Age                 | "); print_int(head->m_age);
+				printf("|Grade               | "); print_int(head->m_grade);
 				printf("------------------------------------------------------\n");
 				
 				flag = 1;
 				break;
 			}
-			head_student = head_student->link;
+			head = head->link;
 		}
 	}
 	
