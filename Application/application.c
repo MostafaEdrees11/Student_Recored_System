@@ -150,7 +150,12 @@ void Login(void)
 		}
 		
 		if(flag == 0)
-			printf("ID Doesn't exist.\n");
+		{
+			printf("\n");
+			printf("***********************************************************\n");
+			printf("|                Entered ID doesn't exist!                |\n");
+			printf("***********************************************************\n");
+		}
 	}
 	
 }
@@ -240,7 +245,7 @@ void Admin_Mode(long admin_id)
 		printf("\n");
 		printf("Enter ID: ");
 		scanf("%ld",&Entered_ID);
-		Remove_student_record (&head_student,Entered_ID);
+		Remove_student_record(&head_student,Entered_ID);
 		break;
 		
 		case 3:
