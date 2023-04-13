@@ -20,7 +20,6 @@ int main()
 	
 	Start_Program();
 	
-	
 	return 0;
 }
 
@@ -42,6 +41,7 @@ void Start_Program(void)
 		printf("***********************************************************\n");
 		
 		printf("\nYou choose: ");
+		fflush(stdin);
 		scanf("%d",&choose_mode);
 		printf("\n");
 		
@@ -88,16 +88,20 @@ void Start_Program(void)
 	printf("|            Eng. Mariam Elbeshbeeshy                     |\n");
 	printf("***********************************************************\n");
 	printf("|Supervisor:                                              |\n");
-	printf("|            Menna                                        |\n");
+	printf("|            Eng. Menna Adel                              |\n");
 	printf("***********************************************************\n");
 	printf("|Head:                                                    |\n");
-	printf("|            Moshen Yousif                                |\n");
+	printf("|           Eng. Moshen Youssif                           |\n");
+	printf("***********************************************************\n");
+	printf("***********************************************************\n");
+	printf("|                  Best of Luck                           |\n");
 	printf("***********************************************************\n");
 }
 
 void Login(void)
 {
-	int flag = 0, password_state;
+	int flag = Not_Exist;
+	int password_state;
 	
 	s_admin *ptr_admin = (s_admin *)malloc(sizeof(s_admin));
 	ptr_admin = head_admin;
@@ -117,21 +121,18 @@ void Login(void)
 		{
 			if(ptr_admin->m_adminID == Entered_ID)
 			{
-				printf("\nbefore sent it: %s\n",ptr_admin->m_adminPassword);
-				printf("%s\n",head_admin->m_adminPassword);
 				password_state = Check_Password(ptr_admin->m_adminPassword);
+				
 				if(password_state == 1)
-				{
-					//printf("\n%s\n",ptr_admin->m_adminPassword);
-					Admin_Mode(ptr_admin->m_adminID);
-				}
-				flag = 1;
+					Admin_Mode(ptr_admin,ptr_admin->m_adminID);
+				
+				flag = Exist;
 				break;
 			}
 			ptr_admin = ptr_admin->link;
 		}
 		
-		if(flag == 0)
+		if(flag == Not_Exist)
 		{
 			printf("\n");
 			printf("***********************************************************\n");
@@ -151,15 +152,17 @@ void Login(void)
 			if(ptr_student->m_id == Entered_ID)
 			{
 				password_state = Check_Password(ptr_student->m_password);
+				
 				if(password_state == 1)
-					Student_Mode(ptr_student->m_id);
-				flag = 1;
+					Student_Mode(ptr_student,ptr_student->m_id);
+				
+				flag = Exist;
 				break;
 			}
 			ptr_student = ptr_student->link;
 		}
 		
-		if(flag == 0)
+		if(flag == Not_Exist)
 		{
 			printf("\n");
 			printf("***********************************************************\n");
@@ -176,10 +179,6 @@ int Check_Password(char *password)
 	int counter, pass_correct_or_not;
 	static int num_attempts = 0;
 	char Entered_Password[5];
-	
-	
-	//printf("\n%s\n",Entered_Password);
-	//printf("given: %s\n",password);
 	
 	if(num_attempts < 3)
 	{
@@ -198,8 +197,6 @@ int Check_Password(char *password)
 		}
 		else
 		{
-			//printf("\n%s\n",Entered_Password);
-			//printf("\n%s\n",password);
 			printf("\n\n");
 			printf("***********************************************************\n");
 			printf("|                   Wrong Password !!!                    |\n");
@@ -221,7 +218,7 @@ int Check_Password(char *password)
 	return pass_correct_or_not;
 }
 
-void Admin_Mode(long admin_id)
+void Admin_Mode(s_admin *ptr_admin,long admin_id)
 {
 	int order;
 	long Entered_ID;
@@ -285,11 +282,7 @@ void Admin_Mode(long admin_id)
 		printf("|                  Edit Admin Password                    |\n");
 		printf("***********************************************************\n");
 		printf("\n");
-		//printf("\n%s\n",head_admin->m_adminPassword);
-		//Edit_Admin_Password(&head_admin,admin_id); 
-		head_admin = Edit_Admin_Password(head_admin,admin_id);
-		//Edit_Admin_Password(head_admin,admin_id);	
-		//printf("\n%s\n",head_admin->m_adminPassword);
+		ptr_admin->m_adminPassword = Edit_Admin_Password(head_admin,admin_id);
 		break;
 		
 		case 6:
@@ -302,11 +295,18 @@ void Admin_Mode(long admin_id)
 		Edit_student_grade(head_student,Entered_ID);
 		break;
 		
+		default:
+		printf("***********************************************************\n");
+		printf("|                You Enter Wrong Choose                   |\n");
+		printf("***********************************************************\n");
+		printf("\n");
+		Admin_Mode(ptr_admin,admin_id);
+		
 	}
 
 }
 
-void Student_Mode(long id)
+void Student_Mode(s_student *ptr_student,long id)
 {
 	int order;
 	
@@ -336,8 +336,8 @@ void Student_Mode(long id)
 		printf("***********************************************************\n");
 		printf("|                  Edit Your Password                     |\n");
 		printf("***********************************************************\n");
-		Edit_Student_Password(head_student,id);
 		printf("\n");
+		ptr_student->m_password = Edit_Student_Password(head_student,id);
 		break;
 		
 		case 3:
@@ -347,6 +347,12 @@ void Student_Mode(long id)
 		printf("\n");
 		Edit_student_name(head_student,id);
 		break;
-		
+	
+		default:
+		printf("***********************************************************\n");
+		printf("|                You Enter Wrong Choose                   |\n");
+		printf("***********************************************************\n");
+		printf("\n");
+		Student_Mode(ptr_student,id);
 	}
 }

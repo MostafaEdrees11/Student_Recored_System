@@ -12,6 +12,7 @@ s_admin *head_admin;
 
 void add_admin_at_start(void)
 {
+	//Admin1
 	head_admin = (s_admin *)malloc(sizeof(s_admin));
 	head_admin->m_adminName = "Admin1";
 	head_admin->m_adminID = 1000;
@@ -39,7 +40,11 @@ void View_all_records(s_student *head_student)
 	int counter = 0, total_grade = 0, average_grade;
 	
 	if(head_student == NULL)
-		printf("The list is empty.\n");
+	{
+		printf("***********************************************************\n");
+		printf("|                   The list is empty.                    |\n");
+		printf("***********************************************************\n");
+	}
 	else
 	{
 		while(head_student != NULL)
@@ -72,24 +77,27 @@ void View_all_records(s_student *head_student)
 }
 
 /*
-------------------------------------------------------------------------------------------------
-									Function Definition		                	    		   |
-------------------------------------------------------------------------------------------------
-Name: Remove student record		                                                               |
-Parameters: it take two parameters (pointer to pointer to head of students linked list, ID of student ).                  |
-Return: it returns no thing.                                                                   |
-Usage: it is used to Remove student record by entered the student ID . |
-------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+									Function Definition		                	    		   			|
+---------------------------------------------------------------------------------------------------------
+Name: Remove student record		                                                               			|
+Parameters: it take two parameters (pointer to pointer to head of students linked list, ID of student ).|
+Return: it returns no thing.                                                                   			|
+Usage: it is used to Remove student record by entered the student ID .  								|
+---------------------------------------------------------------------------------------------------------
 */
 void Remove_student_record (s_student **head_student,long ID)
 {
-	int flag=0;    //use to check id is correct or not, flag =0 that means id is wrong,flag=1 id is correct
-	s_student *current=*head_student;   //pointer point to head of students ,use it to free the memory
-	s_student *previous= *head_student; //pointer point to head of students 
+	int flag = Not_Exist;
+	
+	s_student *current = *head_student;   //pointer point to head of students ,use it to free the memory
+	s_student *previous = *head_student; //pointer point to head of students 
 
 	if (*head_student==NULL)
 	{
-		printf("list is empty \n");
+		printf("***********************************************************\n");
+		printf("|                   The list is empty.                    |\n");
+		printf("***********************************************************\n");
 	}
 	else
 	{
@@ -100,7 +108,7 @@ void Remove_student_record (s_student **head_student,long ID)
 		then free current 
 		else check the rest record
 		*/
-		if((*head_student)->m_id==ID)
+		if((*head_student)->m_id == ID)
 		{
 			current = *head_student;  
 			*head_student = current->link;
@@ -111,7 +119,8 @@ void Remove_student_record (s_student **head_student,long ID)
 			printf("***********************************************************\n");
 			printf("|              Removed Student succesfully                |\n");
 			printf("***********************************************************\n");
-			flag=1;
+			
+			flag = Exist;
 		}
 		else
 		{
@@ -121,7 +130,7 @@ void Remove_student_record (s_student **head_student,long ID)
 		        {
 					current = previous->link;       //current point to the student record that has this id( this id of student want to remove) 
 					previous->link = current->link; //previous now  doesn't point to this student record(this id of student want to remove) but point to after this ,
-			                               // now node(student record of this id) will be disconnceted from the linked list
+													// now node(student record of this id) will be disconnceted from the linked list
 					free(current);           //free the memory
 					current = NULL;
 					
@@ -129,7 +138,7 @@ void Remove_student_record (s_student **head_student,long ID)
 					printf("***********************************************************\n");
 					printf("|              Removed Student succesfully                |\n");
 					printf("***********************************************************\n");
-					flag=1;
+					flag = Exist;
 					break;
 				}
 				//Otherwise, move the previous node and proceed
@@ -138,7 +147,7 @@ void Remove_student_record (s_student **head_student,long ID)
 			}
 		}
 
-		if(flag==0)
+		if(flag == Not_Exist)
 		{
 			printf("\n");
 			printf("***********************************************************\n");
@@ -153,16 +162,22 @@ void Remove_student_record (s_student **head_student,long ID)
 									Function Definition		                	    		   |
 ------------------------------------------------------------------------------------------------
 Name: Edit student grade		                                                               |
-Parameters: it take two parameters ( pointer to head of students linked list, ID of student ).                  |
+Parameters: it take two parameters ( pointer to head of students linked list, ID of student )  |
 Return: it returns no thing.                                                                   |
 Usage: it is used to Edit student grade by entered the student ID . |
 ------------------------------------------------------------------------------------------------
 */
-void Edit_student_grade(s_student *head_student,long ID){
-int flag = 0; /* use flag to check id is exist or not flag=1 this means id is exist ,
-              if flag=0 this means id isn't exist*/
-int new_grade;
-	if(head_student == NULL){printf("The list is empty.\n");}	
+void Edit_student_grade(s_student *head_student,long ID)
+{
+	int flag = Not_Exist;
+	int new_grade; 
+	
+	if(head_student == NULL)
+	{
+		printf("***********************************************************\n");
+		printf("|                   The list is empty.                    |\n");
+		printf("***********************************************************\n");
+	}	
 	else
 	{
 
@@ -170,19 +185,21 @@ int new_grade;
 		{
 			if(head_student->m_id == ID)
 			{
-				printf("\nEnter the new grade: ");
+				printf("\nEnter the New Grade: ");
 				scanf("%d",&new_grade);
-				head_student->m_grade=new_grade;
+				
+				head_student->m_grade = new_grade;
+				
 				printf("\n");
 				printf("***********************************************************\n");
 				printf("|              Grade is updated succesfully               |\n");
 				printf("***********************************************************\n");
-				flag = 1;
+				flag = Exist;
 				break;
 			}
 			head_student = head_student->link;
 		}
-		if(flag == 0)
+		if(flag == Not_Exist)
 		{
 			printf("\n");
 			printf("***********************************************************\n");
@@ -198,18 +215,18 @@ int new_grade;
 									Function Definition		                	    		   |
 ------------------------------------------------------------------------------------------------
 Name: Add student record		                                                               |
-Parameters: it takes parameters (pointer to head of students linked list, student data ).      |
+Parameters: it takes one parameter(pointer to head of students linked list ).      			   |
 Return: it returns no thing.                                                                   |
 Usage: it is used to add student record by entered the student data .                          |
 ------------------------------------------------------------------------------------------------
 */
-
 void Add_student_record(s_student** head)
 {
     char name[100], gender[100], password[100];
     int grade, age;
     long id;
 
+	//take data of the student
     printf("Enter Name: ");
 	fflush(stdin);
     fgets(name, 100, stdin);
@@ -223,6 +240,10 @@ void Add_student_record(s_student** head)
     fgets(gender, 100, stdin);
     gender[strcspn(gender, "\n")] = '\0';
 
+	printf("\n");
+	printf("-----------------------------------------------------------\n");
+	printf("|          Note: password is only 4 characters.           |\n");
+	printf("-----------------------------------------------------------\n");
     printf("Enter Password: ");
 	fflush(stdin);
     fgets(password, 100, stdin);
@@ -235,7 +256,8 @@ void Add_student_record(s_student** head)
     scanf("%d", &age);
 
     // Allocate memory for the new student record
-    s_student* temp = (s_student*)malloc(sizeof(s_student));
+    
+	s_student* temp = (s_student*)malloc(sizeof(s_student));
     if(temp == NULL)
 	{
         printf("Error: Failed to allocate memory\n");
@@ -298,163 +320,54 @@ void Add_student_record(s_student** head)
 ------------------------------------------------------------------------------------------------
 Name: Edit admin password																	   |
 Parameters: it takes parameters (pointer to head of admins linked list, admin's ID ).		   |
-Return: it returns no thing.                                                                   |
+Return: it returns password.                                                                   |
 Usage: it is used to edit admin's password after checking if the id exists.                    |
 ------------------------------------------------------------------------------------------------
 */
 
-
-// void Edit_Admin_Password(s_admin *head,long id)
-// {
-    // int flag = 0, counter;
-    // //char password[5],confirm_password[5];
-    // char password[5];
-
-    // //s_adminptr = head;
-
-    // while (head != NULL)
-    // {
-        // if (head->m_adminID == id)
-        // {
-            // flag = 1;
-            // printf("Note: password is only 4 characters.\n");
-            // printf("Enter the new password:");
-            // for(counter = 0; counter < 4; counter++)
-            // {
-                // fflush(stdin);
-                // password[counter] = getch();
-                // printf("");
-            // }
-            // password[counter] = '\0';
-
-            // head->m_adminPassword = password;
-            // printf("\n");
-            // printf("**\n");
-            // printf("|              password is updated succesfully            |\n");
-            // printf("**\n");
-            // printf("%s",head->m_adminPassword);
-            // flag = 1;
-            // break;
-        // }
-        // head= head->link;
-    // }
-    // if(flag == 0)
-        // {
-            // printf("\n");
-            // printf("**\n");
-            // printf("|                Entered ID doesn't exist!                |\n");
-            // printf("**\n");
-        // }
-// }
-
-
-s_admin * Edit_Admin_Password(s_admin *head,long id)        
+char* Edit_Admin_Password(s_admin *head,long id)
 {
-	int flag = 0, counter;
-	char password[5];
+	int flag = Not_Exist;
+	char *new_pass;
 	
-	s_admin *ptr = head;
-	if(ptr->m_adminID == id)
+
+	if(head == NULL)
 	{
-		flag = 1;
-		printf("Note: password is only 4 characters.\n");
-		printf("Enter the new password:");
-		for(counter = 0; counter < 4; counter++)
-		{
-			fflush(stdin);
-			password[counter] = getch();
-			printf("*");
-		}
-		password[counter] = '\0';
+		printf("***********************************************************\n");
+		printf("|                   The list is empty.                    |\n");
+		printf("***********************************************************\n");
 		
-		head->m_adminPassword = password;
-		printf("\nafter: %s\n",head->m_adminPassword);
-		printf("%s\n",password);
 	}
 	else
 	{
-		while(ptr->link != NULL)
+
+		while(head != NULL)
 		{
-			if(ptr->m_adminID == id)
+			if(head->m_adminID == id)
 			{
-				flag = 1;
-				printf("Note: password is only 4 characters.\n");
-				printf("Enter the new password:");
-				for(counter = 0; counter < 4; counter++)
-				{
-					fflush(stdin);
-					password[counter] = getch();
-					printf("*");
-				}
-				password[counter] = '\0';
+				printf("-----------------------------------------------------------\n");
+				printf("|          Note: password is only 4 characters.           |\n");
+				printf("-----------------------------------------------------------\n");
+				printf("Enter the New Password: ");
+				fflush(stdin);
+				fgets(new_pass, 5, stdin);
+				new_pass[strcspn(new_pass, "\n")] = '\0';
+				head->m_adminPassword = new_pass;
 				
-				ptr->m_adminPassword = password;
+				flag = Exist;
 				break;
 			}
-			ptr = ptr->link;
+			head = head->link;
+		}
+		
+		if(flag == Not_Exist)
+		{
+			printf("***********************************************************\n");
+            printf("|            The entered ID already exists!               |\n");
+			printf("***********************************************************\n");
 		}
 	}
-	
-	if (flag == 0)
-		printf("Entered ID doesn't exist!\n");
-	
-	return ptr;
+	return new_pass;
+
 }
 
-
-/*while (head != NULL)
-	{
-		if (head->m_adminID == id)
-		{
-			flag = 1;
-			printf("Note: password is only 4 characters.\n");
-			printf("Enter the new password:");
-			for(counter = 0; counter < 4; counter++)
-			{
-				fflush(stdin);
-				password[counter] = getch();
-				printf("*");
-			}
-			password[counter] = '\0';
-			
-			head->m_adminPassword = password;
-			
-			/*printf("\nConfirm the password:");
-			for(counter = 0; counter < 4; counter++)
-			{
-				fflush(stdin);
-				confirm_password[counter] = getch();
-				printf("*");
-			}
-			confirm_password[counter] = '\0';*/
-			
-			// printf("\n%s\n",password);
-			// printf("\n%s\n",head->m_adminPassword);
-			// printf("%s\n",confirm_password);
-			
-			/*if(strcmp(password,confirm_password) == 0)
-			{
-				(*ptr)->m_adminPassword = password;
-				printf("\n");
-				printf("***********************************************************\n");
-				printf("|             Password is edited succesfully              |\n");
-				printf("***********************************************************\n");
-				printf("\n");
-				printf("%s\n",password);
-				printf("%s\n",confirm_password);
-				printf("%s\n",(*ptr)->m_adminPassword);
-				break;
-			}
-			else
-			{
-				printf("\n");
-				printf("***********************************************************\n");
-				printf("|          The two password aren't equivalent.            |\n");
-				printf("***********************************************************\n");
-				printf("\n");
-				Edit_Admin_Password(id);
-				break;
-			}
-		}
-		head = head->link;
-	}*/

@@ -2,11 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include "student.h"
+#include "..\..\System\system.h"
 
 s_student *head_student;
 
 void add_student_at_start(void)
 {
+	//student1
 	head_student = (s_student *)malloc(sizeof(s_student));
 	head_student->m_name = "Student1";
 	head_student->m_gender = "Male";
@@ -16,6 +18,7 @@ void add_student_at_start(void)
 	head_student->m_id = 10002056;
 	head_student->link = NULL;
 	
+	//student2
 	s_student *new_student = (s_student *)malloc(sizeof(s_student));
 	new_student->m_name = "Student2";
 	new_student->m_gender = "Female";
@@ -37,12 +40,17 @@ Return: it returns no thing.                                                    
 Usage: it is used to edit name of the student that we receive its ID.            |
 ----------------------------------------------------------------------------------------------
 */
-void Edit_student_name(s_student *head_student,long ID){
-int flag = 0; /* use flag to check id is exist or not flag=1 this means id is exist ,
-              if flag=0 this means id isn't exist*/
-char *edit_name ;
+void Edit_student_name(s_student *head_student,long ID)
+{
+	int flag = Not_Exist; 
+	char *edit_name ;
+	
 	if(head_student == NULL)
-		printf("The list is empty.\n");
+	{
+		printf("***********************************************************\n");
+		printf("|                   The list is empty.                    |\n");
+		printf("***********************************************************\n");
+	}
 	else
 	{
 
@@ -53,8 +61,8 @@ char *edit_name ;
 			    fflush(stdin);
 				printf("Enter New Name: ");
 				gets(edit_name);
-				head_student->m_name=edit_name;
-				flag = 1;
+				head_student->m_name = edit_name;
+				flag = Exist;
 				
 				printf("\n");
 				printf("***********************************************************\n");
@@ -80,29 +88,53 @@ char *edit_name ;
 									Function Definition		                	    		   |
 ------------------------------------------------------------------------------------------------
 Name: Edit student password																	   |
-Parameters: it takes parameters (pointer to head of student linked list, student's ID ).		   |
-Return: it returns no thing.                                                                   |
+Parameters: it takes parameters (pointer to head of student linked list, student's ID ).		|
+Return: it returns password.                                                                   |
 Usage: it is used to edit student's password after checking if the id exists.                    |
 ------------------------------------------------------------------------------------------------
 */
 
-void Edit_Student_Password(s_student* head, long id)
+char* Edit_Student_Password(s_student *head,long id)
 {
-	int flag = 0;
-	s_student* ptr = head;
-	while (ptr != NULL)
+	int flag = Not_Exist;
+	char *new_pass;
+	
+
+	if(head == NULL)
 	{
-		if (ptr->m_id == id)
-		{
-			printf("Enter the new password:");
-			scanf("%s", &ptr->m_password);
-			printf("password is edited succesfully\n");
-			flag = 1;
-			break;
-		}
-		else
-			ptr = ptr->link;
+		printf("***********************************************************\n");
+		printf("|                   The list is empty.                    |\n");
+		printf("***********************************************************\n");
+		
 	}
-	if (flag == 0)
-		printf("Entered ID doesn't exist!\n");
+	else
+	{
+
+		while(head != NULL)
+		{
+			if(head->m_id == id)
+			{
+				printf("-----------------------------------------------------------\n");
+				printf("|          Note: password is only 4 characters.           |\n");
+				printf("-----------------------------------------------------------\n");
+				printf("Enter the New Password: ");
+				fflush(stdin);
+				fgets(new_pass, 5, stdin);
+				new_pass[strcspn(new_pass, "\n")] = '\0';
+				head->m_password = new_pass;
+				
+				flag = Exist;
+				break;
+			}
+			head = head->link;
+		}
+		
+		if(flag == Not_Exist)
+		{
+			printf("***********************************************************\n");
+            printf("|            The entered ID already exists!               |\n");
+			printf("***********************************************************\n");
+		}
+	}
+	return new_pass;
 }

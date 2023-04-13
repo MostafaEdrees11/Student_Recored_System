@@ -19,15 +19,14 @@ Usage: it is used to print the information of the student that we receive its ID
 */
 void View_student_record(s_student *head,long ID)
 {
-	/* 
-	flag variable is used to check ID
-	if flag == 0 at end of function --> this means that id is not exist
-	else if flag == 1 at end of function --> this means that id is exists and we print information of the student
-	*/
-	int flag = 0;
+	int flag = Not_Exist;	
 	
 	if(head == NULL)
-		printf("The list is empty.\n");
+	{
+		printf("***********************************************************\n");
+		printf("|                   The list is empty.                    |\n");
+		printf("***********************************************************\n");
+	}
 	else
 	{
 		
@@ -47,14 +46,14 @@ void View_student_record(s_student *head,long ID)
 				printf("|Grade               | "); print_int(head->m_grade);
 				printf("------------------------------------------------------\n");
 				
-				flag = 1;
+				flag = Exist;
 				break;
 			}
 			head = head->link;
 		}
 	}
 	
-	if(flag == 0)
+	if(flag == Not_Exist)
 	{
 		printf("***********************************************************\n");
 		printf("|                Entered ID doesn't exist!                |\n");

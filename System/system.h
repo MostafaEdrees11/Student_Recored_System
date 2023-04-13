@@ -4,6 +4,9 @@
 // Total_Length is a macro used to specifiy length of printing (variable + white spaces)
 #define Total_Length 30
 
+#define Exist 1
+#define Not_Exist 0
+
 #include "..\User\Student\student.h"
 
 /*
@@ -13,7 +16,6 @@
 */
 void print_int(int num);
 void print_string(char *string, int len);
-
 void View_student_record(s_student *head,long ID);
 
 

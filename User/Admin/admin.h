@@ -22,9 +22,7 @@ void View_all_records(s_student *head_student);
 void Remove_student_record (s_student **head_student,long ID);
 void Edit_student_grade(s_student *head_student,long ID);
 void Add_student_record(s_student** head);
-//void Edit_Admin_Password(s_admin *head, long id);
-s_admin * Edit_Admin_Password(s_admin *head,long id);   
-//void Edit_Admin_Password(s_admin **head, long id);
+char* Edit_Admin_Password(s_admin *head,long id);   
 void add_admin_at_start(void);
 
 #endif
