@@ -71,10 +71,10 @@ ___
 
 ## Contributors
 * [Mostafa Edrees](https://www.linkedin.com/in/mostafa-edrees-427373225/)
-* [Samar](https://www.linkedin.com/in/samar-ibrahim-b6b2a1272/?originalSubdomain=eg)
-* [Mariam](https://www.linkedin.com/in/mariam-elbeshbeeshy-346594225/)
+* [Samar Ibrahim](https://www.linkedin.com/in/samar-ibrahim-b6b2a1272/?originalSubdomain=eg)
+* [Mariam Elbeshbeeshy](https://www.linkedin.com/in/mariam-elbeshbeeshy-346594225/)
 
-Supervisor: [Menna](https://www.linkedin.com/in/menna-adel-063852236/)   
+Supervisor: [Menna Adel](https://www.linkedin.com/in/menna-adel-063852236/)   
 ___
 
 ## Company
