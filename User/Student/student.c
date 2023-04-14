@@ -40,7 +40,7 @@ Return: it returns no thing.                                                    
 Usage: it is used to edit name of the student that we receive its ID.            |
 ----------------------------------------------------------------------------------------------
 */
-void Edit_student_name(s_student *head_student,long ID)
+char * Edit_student_name(s_student *head_student,long ID)
 {
 	int flag = Not_Exist; 
 	char *edit_name ;
@@ -60,7 +60,10 @@ void Edit_student_name(s_student *head_student,long ID)
 			{
 			    fflush(stdin);
 				printf("Enter New Name: ");
-				gets(edit_name);
+				//gets(edit_name);
+				fflush(stdin);
+				fgets(edit_name, 20, stdin);
+				edit_name[strcspn(edit_name, "\n")] = '\0';
 				head_student->m_name = edit_name;
 				flag = Exist;
 				
@@ -72,7 +75,7 @@ void Edit_student_name(s_student *head_student,long ID)
 			}
 			head_student = head_student->link;
 		}
-		if(flag == 0)
+		if(flag == Not_Exist)
 		{
 			printf("\n");
 			printf("***********************************************************\n");
@@ -80,7 +83,8 @@ void Edit_student_name(s_student *head_student,long ID)
 			printf("***********************************************************\n");
 		}
 	}
-
+	
+	return edit_name;
 }
 
 /*
@@ -124,6 +128,11 @@ char* Edit_Student_Password(s_student *head,long id)
 				head->m_password = new_pass;
 				
 				flag = Exist;
+				
+				printf("\n");
+				printf("***********************************************************\n");
+				printf("|               Password Edited Succesfully               |\n");
+				printf("***********************************************************\n");
 				break;
 			}
 			head = head->link;

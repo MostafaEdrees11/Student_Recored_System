@@ -30,7 +30,19 @@ To now alot of information about the project you can see this pdf:
 
 To see the video of running the project:
 
-[Student Record System Video](https://drive.google.com/file/d/1G6d5u4RAeCquRJj-CYL04ESjOv4DDs8D/view?fbclid=IwAR36UkQcqMqWNTfCBJi3xcmbf4kOvFjw5pKQdI7BnKv9ZBoO2BbEgW0D6-E)
+[Student Record System Video](https://drive.google.com/drive/u/2/folders/1YYSF_ry9aKOWf9gdZVrFLKklp4wJXpx5)
+___
+### At start of the program
+There are one Admin and two students
+* Admin
+
+       ID: 1000                             Password: 1234
+* Student1  
+       
+       ID: 10002056                         Password: 1111
+* Student2  
+       
+       ID: 10002057                         Password: 2222
 ___
 
 ## Build & Run The Project 🔨🔨

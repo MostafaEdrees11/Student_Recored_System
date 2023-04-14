@@ -17,7 +17,8 @@ typedef struct student
 ---------------------------------------------------
 */
 
-void Edit_student_name(s_student *head_student,long ID);
+//void Edit_student_name(s_student *head_student,long ID);
+char * Edit_student_name(s_student *head_student,long ID);
 char* Edit_Student_Password(s_student *head,long id);
 void add_student_at_start(void);
 

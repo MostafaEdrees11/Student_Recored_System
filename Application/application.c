@@ -238,7 +238,6 @@ void Admin_Mode(s_admin *ptr_admin,long admin_id)
 	scanf("%d",&order);
 	printf("\n");
 	
-	
 	switch(order)
 	{
 		case 1:
@@ -345,7 +344,7 @@ void Student_Mode(s_student *ptr_student,long id)
 		printf("|                  Edit Your Name                         |\n");
 		printf("***********************************************************\n");
 		printf("\n");
-		Edit_student_name(head_student,id);
+		ptr_student->m_name = Edit_student_name(head_student,id);
 		break;
 	
 		default:
